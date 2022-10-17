@@ -25,6 +25,9 @@ According to business goals there data mining goals that can be set. We can unde
 
 ### Interpretation of results of statistical methods
 
+- District name can be seen like an id so it's not important
+- k_symbol in transaction table has many null values, so we may consider remove it.
+
 ### Knowledge extraction from results of statistical methods
 
 ### Plots Diversity and Complexity
