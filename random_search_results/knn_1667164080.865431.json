@@ -1,0 +1,8 @@
+{
+    "best_params": {
+        "weights": "uniform",
+        "n_neighbors": 8,
+        "algorithm": "auto"
+    },
+    "best_score": 0.5954291979949874
+}
