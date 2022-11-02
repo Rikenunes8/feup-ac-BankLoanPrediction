@@ -12,9 +12,9 @@
     <parameter key="process_duration_for_mail" value="30"/>
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
-      <operator activated="true" class="multiply" compatibility="9.10.011" expanded="true" height="124" name="Multiply (3)" width="90" x="112" y="391"/>
+      <operator activated="true" class="multiply" compatibility="9.10.011" expanded="true" height="103" name="Multiply (3)" width="90" x="112" y="391"/>
       <operator activated="true" class="concurrency:correlation_matrix" compatibility="9.10.011" expanded="true" height="103" name="Correlation Matrix" width="90" x="447" y="340">
-        <parameter key="attribute_filter_type" value="subset"/>
+        <parameter key="attribute_filter_type" value="all"/>
         <parameter key="attribute" value="account_id"/>
         <parameter key="attributes" value="age_on_loan_request_disc|account_frequency"/>
         <parameter key="use_except_expression" value="false"/>
@@ -24,7 +24,7 @@
         <parameter key="block_type" value="attribute_block"/>
         <parameter key="use_block_type_exception" value="false"/>
         <parameter key="except_block_type" value="value_matrix_row_start"/>
-        <parameter key="invert_selection" value="true"/>
+        <parameter key="invert_selection" value="false"/>
         <parameter key="include_special_attributes" value="false"/>
         <parameter key="normalize_weights" value="true"/>
         <parameter key="squared_correlation" value="false"/>
