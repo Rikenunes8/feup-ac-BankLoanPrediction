@@ -54,7 +54,7 @@
         </list>
         <parameter key="read_not_matching_values_as_missings" value="false"/>
       </operator>
-      <operator activated="true" class="guess_types" compatibility="9.10.011" expanded="true" height="82" name="Guess Types" width="90" x="246" y="136">
+      <operator activated="true" class="guess_types" compatibility="9.10.011" expanded="true" height="82" name="Guess Types" width="90" x="179" y="187">
         <parameter key="attribute_filter_type" value="all"/>
         <parameter key="attribute" value=""/>
         <parameter key="attributes" value=""/>
@@ -69,7 +69,7 @@
         <parameter key="include_special_attributes" value="false"/>
         <parameter key="decimal_point_character" value="."/>
       </operator>
-      <operator activated="false" class="remove_correlated_attributes" compatibility="9.10.011" expanded="true" height="82" name="Remove Correlated Attributes" width="90" x="313" y="391">
+      <operator activated="false" class="remove_correlated_attributes" compatibility="9.10.011" expanded="true" height="82" name="Remove Correlated Attributes" width="90" x="179" y="646">
         <parameter key="correlation" value="0.95"/>
         <parameter key="filter_relation" value="greater"/>
         <parameter key="attribute_order" value="original"/>
@@ -77,8 +77,8 @@
         <parameter key="use_local_random_seed" value="false"/>
         <parameter key="local_random_seed" value="1992"/>
       </operator>
-      <operator activated="true" class="multiply" compatibility="9.10.011" expanded="true" height="82" name="Multiply (3)" width="90" x="380" y="136"/>
-      <operator activated="true" class="replace_missing_values" compatibility="9.10.011" expanded="true" height="103" name="Replace Missing Values" width="90" x="581" y="136">
+      <operator activated="true" class="multiply" compatibility="9.10.011" expanded="true" height="82" name="Multiply (3)" width="90" x="313" y="187"/>
+      <operator activated="true" class="replace_missing_values" compatibility="9.10.011" expanded="true" height="103" name="Replace Missing Values" width="90" x="447" y="187">
         <parameter key="return_preprocessing_model" value="false"/>
         <parameter key="create_view" value="false"/>
         <parameter key="attribute_filter_type" value="subset"/>
@@ -96,7 +96,7 @@
         <parameter key="default" value="average"/>
         <list key="columns"/>
       </operator>
-      <operator activated="false" class="subprocess" compatibility="9.10.011" expanded="true" height="82" name="(Not working) Replace MVs with medians" width="90" x="782" y="544">
+      <operator activated="false" class="subprocess" compatibility="9.10.011" expanded="true" height="82" name="(Not working) Replace MVs with medians" width="90" x="313" y="646">
         <process expanded="true">
           <operator activated="true" class="multiply" compatibility="9.10.011" expanded="true" height="103" name="Multiply (2)" width="90" x="112" y="187"/>
           <operator activated="true" class="replace_missing_values" compatibility="9.10.011" expanded="true" height="103" name="Replace Missing Values - unemploymant 95" width="90" x="514" y="442">
@@ -184,7 +184,7 @@
           <portSpacing port="sink_out 2" spacing="0"/>
         </process>
       </operator>
-      <operator activated="true" class="select_attributes" compatibility="9.10.011" expanded="true" height="82" name="Select Attributes (2)" width="90" x="782" y="136">
+      <operator activated="true" class="select_attributes" compatibility="9.10.011" expanded="true" height="82" name="Select Attributes (2)" width="90" x="581" y="187">
         <parameter key="attribute_filter_type" value="single"/>
         <parameter key="attribute" value="name"/>
         <parameter key="attributes" value=""/>
@@ -198,7 +198,7 @@
         <parameter key="invert_selection" value="true"/>
         <parameter key="include_special_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="write_csv" compatibility="9.10.011" expanded="true" height="82" name="Write CSV" width="90" x="983" y="85">
+      <operator activated="false" class="write_csv" compatibility="9.10.011" expanded="true" height="82" name="Write CSV" width="90" x="782" y="85">
         <parameter key="csv_file" value="D:/FEUP/M.EIC/ML/feup-ac-proj/data_processed/district.csv"/>
         <parameter key="column_separator" value=";"/>
         <parameter key="write_attribute_names" value="true"/>
@@ -208,15 +208,65 @@
         <parameter key="append_to_file" value="false"/>
         <parameter key="encoding" value="SYSTEM"/>
       </operator>
+      <operator activated="true" class="multiply" compatibility="9.10.011" expanded="true" height="124" name="Multiply" width="90" x="313" y="391"/>
+      <operator activated="false" class="detect_outlier_cof" compatibility="9.10.011" expanded="true" height="82" name="Detect Outlier (COF)" width="90" x="849" y="493">
+        <parameter key="number_of_neighbors" value="7"/>
+        <parameter key="number_of_class_outliers" value="10"/>
+        <parameter key="measure_types" value="MixedMeasures"/>
+        <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
+        <parameter key="nominal_measure" value="NominalDistance"/>
+        <parameter key="numerical_measure" value="EuclideanDistance"/>
+        <parameter key="divergence" value="GeneralizedIDivergence"/>
+        <parameter key="kernel_type" value="radial"/>
+        <parameter key="kernel_gamma" value="1.0"/>
+        <parameter key="kernel_sigma1" value="1.0"/>
+        <parameter key="kernel_sigma2" value="0.0"/>
+        <parameter key="kernel_sigma3" value="2.0"/>
+        <parameter key="kernel_degree" value="3.0"/>
+        <parameter key="kernel_shift" value="1.0"/>
+        <parameter key="kernel_a" value="1.0"/>
+        <parameter key="kernel_b" value="0.0"/>
+      </operator>
+      <operator activated="true" class="detect_outlier_lof" compatibility="9.10.011" expanded="true" height="82" name="Detect Outlier (LOF)" width="90" x="648" y="391">
+        <parameter key="minimal_points_lower_bound" value="10"/>
+        <parameter key="minimal_points_upper_bound" value="20"/>
+        <parameter key="distance_function" value="euclidian distance"/>
+      </operator>
+      <operator activated="false" class="detect_outlier_densities" compatibility="9.10.011" expanded="true" height="82" name="Detect Outlier (Densities)" width="90" x="648" y="595">
+        <parameter key="distance_function" value="euclidian distance"/>
+      </operator>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.10.011" expanded="true" height="82" name="Execute Clustering" width="90" x="514" y="646">
+        <parameter key="process_location" value="Clustering"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <operator activated="true" class="detect_outlier_distances" compatibility="9.10.011" expanded="true" height="82" name="Detect Outlier (Distances)" width="90" x="447" y="340">
+        <parameter key="number_of_neighbors" value="10"/>
+        <parameter key="number_of_outliers" value="10"/>
+        <parameter key="distance_function" value="euclidian distance"/>
+      </operator>
       <connect from_op="Read CSV" from_port="output" to_op="Guess Types" to_port="example set input"/>
       <connect from_op="Guess Types" from_port="example set output" to_op="Multiply (3)" to_port="input"/>
       <connect from_op="Multiply (3)" from_port="output 1" to_op="Replace Missing Values" to_port="example set input"/>
       <connect from_op="Replace Missing Values" from_port="example set output" to_op="Select Attributes (2)" to_port="example set input"/>
-      <connect from_op="Select Attributes (2)" from_port="example set output" to_op="Write CSV" to_port="input"/>
-      <connect from_op="Write CSV" from_port="through" to_port="result 1"/>
+      <connect from_op="Select Attributes (2)" from_port="example set output" to_op="Multiply" to_port="input"/>
+      <connect from_op="Multiply" from_port="output 1" to_op="Execute Clustering" to_port="input 1"/>
+      <connect from_op="Multiply" from_port="output 2" to_op="Detect Outlier (Distances)" to_port="example set input"/>
+      <connect from_op="Multiply" from_port="output 3" to_op="Detect Outlier (LOF)" to_port="example set input"/>
+      <connect from_op="Detect Outlier (LOF)" from_port="example set output" to_port="result 4"/>
+      <connect from_op="Execute Clustering" from_port="result 1" to_port="result 1"/>
+      <connect from_op="Execute Clustering" from_port="result 2" to_port="result 2"/>
+      <connect from_op="Detect Outlier (Distances)" from_port="example set output" to_port="result 3"/>
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>
       <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
+      <portSpacing port="sink_result 5" spacing="0"/>
     </process>
   </operator>
 </process>
