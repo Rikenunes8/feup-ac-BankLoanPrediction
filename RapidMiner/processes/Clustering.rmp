@@ -89,12 +89,11 @@
         <parameter key="include_special_attributes" value="false"/>
       </operator>
       <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="145" name="Multiply (2)" width="90" x="246" y="391"/>
-      <operator activated="true" class="principal_component_analysis" compatibility="10.0.000" expanded="true" height="103" name="PCA" width="90" x="447" y="493">
+      <operator activated="true" class="principal_component_analysis" compatibility="10.0.000" expanded="true" height="103" name="PCA" width="90" x="380" y="544">
         <parameter key="dimensionality_reduction" value="keep variance"/>
         <parameter key="variance_threshold" value="0.95"/>
         <parameter key="number_of_components" value="1"/>
       </operator>
-      <operator activated="false" class="model_simulator:cluster_model_visualizer" compatibility="10.0.000" expanded="true" height="103" name="DBSCAN visualizer" width="90" x="648" y="34"/>
       <operator activated="true" class="concurrency:k_means" compatibility="10.0.000" expanded="true" height="82" name="k-Means" width="90" x="514" y="289">
         <parameter key="add_cluster_attribute" value="true"/>
         <parameter key="add_as_label" value="false"/>
@@ -120,7 +119,7 @@
         <parameter key="use_local_random_seed" value="false"/>
         <parameter key="local_random_seed" value="1992"/>
       </operator>
-      <operator activated="true" class="x_means" compatibility="10.0.000" expanded="true" height="82" name="X-Means" width="90" x="581" y="391">
+      <operator activated="true" class="x_means" compatibility="10.0.000" expanded="true" height="82" name="X-Means" width="90" x="447" y="391">
         <parameter key="add_cluster_attribute" value="true"/>
         <parameter key="add_as_label" value="false"/>
         <parameter key="remove_unlabeled" value="false"/>
@@ -147,7 +146,7 @@
         <parameter key="use_local_random_seed" value="false"/>
         <parameter key="local_random_seed" value="1992"/>
       </operator>
-      <operator activated="true" class="model_simulator:cluster_model_visualizer" compatibility="10.0.000" expanded="true" height="103" name="X-means Visualizer" width="90" x="715" y="391"/>
+      <operator activated="true" class="model_simulator:cluster_model_visualizer" compatibility="10.0.000" expanded="true" height="103" name="X-means Visualizer" width="90" x="648" y="442"/>
       <operator activated="true" class="model_simulator:cluster_model_visualizer" compatibility="10.0.000" expanded="true" height="103" name="k-Means Visualizer" width="90" x="715" y="238"/>
       <operator activated="true" class="normalize" compatibility="10.0.000" expanded="true" height="103" name="Normalize" width="90" x="313" y="238">
         <parameter key="return_preprocessing_model" value="false"/>
