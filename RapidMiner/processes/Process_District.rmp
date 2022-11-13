@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><process version="9.10.011">
+<?xml version="1.0" encoding="UTF-8"?><process version="10.0.000">
   <context>
     <input/>
     <output/>
     <macros/>
   </context>
-  <operator activated="true" class="process" compatibility="9.10.011" expanded="true" name="Process">
+  <operator activated="true" class="process" compatibility="10.0.000" expanded="true" name="Process">
     <parameter key="logverbosity" value="init"/>
     <parameter key="random_seed" value="2001"/>
     <parameter key="send_mail" value="never"/>
@@ -12,8 +12,8 @@
     <parameter key="process_duration_for_mail" value="30"/>
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
-      <operator activated="true" class="read_csv" compatibility="9.10.011" expanded="true" height="68" name="Read CSV" width="90" x="45" y="136">
-        <parameter key="csv_file" value="D:/FEUP/M.EIC/ML/feup-ac-proj/data_manually_processed/district.csv"/>
+      <operator activated="true" class="read_csv" compatibility="10.0.000" expanded="true" height="68" name="Read CSV" width="90" x="45" y="136">
+        <parameter key="csv_file" value="/Users/lmrg2000/Desktop/MEIC/AC/feup-ac-proj/data_processed/district.csv"/>
         <parameter key="column_separators" value=","/>
         <parameter key="trim_lines" value="false"/>
         <parameter key="use_quotes" value="true"/>
@@ -32,29 +32,24 @@
         <list key="annotations"/>
         <parameter key="time_zone" value="SYSTEM"/>
         <parameter key="locale" value="English (United States)"/>
-        <parameter key="encoding" value="windows-1252"/>
+        <parameter key="encoding" value="UTF-8"/>
         <parameter key="read_all_values_as_polynominal" value="false"/>
         <list key="data_set_meta_data_information">
           <parameter key="0" value="code.true.integer.attribute"/>
-          <parameter key="1" value="name.true.polynominal.attribute"/>
-          <parameter key="2" value="region.true.polynominal.attribute"/>
-          <parameter key="3" value="no\. of inhabitants.true.integer.attribute"/>
-          <parameter key="4" value="no\. of municipalities with inhabitants &lt; 499.true.integer.attribute"/>
-          <parameter key="5" value="no\. of municipalities with inhabitants 500-1999.true.integer.attribute"/>
-          <parameter key="6" value="no\. of municipalities with inhabitants 2000-9999.true.integer.attribute"/>
-          <parameter key="7" value="no\. of municipalities with inhabitants &gt;10000.true.integer.attribute"/>
-          <parameter key="8" value="no\. of cities .true.integer.attribute"/>
-          <parameter key="9" value="ratio of urban inhabitants.true.real.attribute"/>
-          <parameter key="10" value="average salary.true.integer.attribute"/>
-          <parameter key="11" value="unemploymant rate 95.true.polynominal.attribute"/>
-          <parameter key="12" value="unemploymant rate 96 .true.real.attribute"/>
-          <parameter key="13" value="no\. of enterpreneurs per 1000 inhabitants.true.integer.attribute"/>
-          <parameter key="14" value="no\. of commited crimes 95.true.polynominal.attribute"/>
-          <parameter key="15" value="no\. of commited crimes 96 .true.integer.attribute"/>
+          <parameter key="1" value="region.true.polynominal.attribute"/>
+          <parameter key="2" value="no\. of municipalities with inhabitants &lt; 499.true.integer.attribute"/>
+          <parameter key="3" value="no\. of municipalities with inhabitants 500-1999.true.integer.attribute"/>
+          <parameter key="4" value="no\. of municipalities with inhabitants &gt; 2000.true.integer.attribute"/>
+          <parameter key="5" value="no\. of cities .true.integer.attribute"/>
+          <parameter key="6" value="ratio of urban inhabitants.true.real.attribute"/>
+          <parameter key="7" value="average salary.true.integer.attribute"/>
+          <parameter key="8" value="ratio enterpreneurs.true.real.attribute"/>
+          <parameter key="9" value="unemploymant rate growth.true.real.attribute"/>
+          <parameter key="10" value="crime rate growth.true.real.attribute"/>
         </list>
         <parameter key="read_not_matching_values_as_missings" value="false"/>
       </operator>
-      <operator activated="true" class="guess_types" compatibility="9.10.011" expanded="true" height="82" name="Guess Types" width="90" x="179" y="187">
+      <operator activated="true" class="guess_types" compatibility="10.0.000" expanded="true" height="82" name="Guess Types" width="90" x="179" y="187">
         <parameter key="attribute_filter_type" value="all"/>
         <parameter key="attribute" value=""/>
         <parameter key="attributes" value=""/>
@@ -69,7 +64,7 @@
         <parameter key="include_special_attributes" value="false"/>
         <parameter key="decimal_point_character" value="."/>
       </operator>
-      <operator activated="false" class="remove_correlated_attributes" compatibility="9.10.011" expanded="true" height="82" name="Remove Correlated Attributes" width="90" x="179" y="646">
+      <operator activated="false" class="remove_correlated_attributes" compatibility="10.0.000" expanded="true" height="82" name="Remove Correlated Attributes" width="90" x="179" y="646">
         <parameter key="correlation" value="0.95"/>
         <parameter key="filter_relation" value="greater"/>
         <parameter key="attribute_order" value="original"/>
@@ -77,8 +72,8 @@
         <parameter key="use_local_random_seed" value="false"/>
         <parameter key="local_random_seed" value="1992"/>
       </operator>
-      <operator activated="true" class="multiply" compatibility="9.10.011" expanded="true" height="82" name="Multiply (3)" width="90" x="313" y="187"/>
-      <operator activated="true" class="replace_missing_values" compatibility="9.10.011" expanded="true" height="103" name="Replace Missing Values" width="90" x="447" y="187">
+      <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="82" name="Multiply (3)" width="90" x="313" y="187"/>
+      <operator activated="true" class="replace_missing_values" compatibility="10.0.000" expanded="true" height="103" name="Replace Missing Values" width="90" x="447" y="187">
         <parameter key="return_preprocessing_model" value="false"/>
         <parameter key="create_view" value="false"/>
         <parameter key="attribute_filter_type" value="subset"/>
@@ -96,10 +91,10 @@
         <parameter key="default" value="average"/>
         <list key="columns"/>
       </operator>
-      <operator activated="false" class="subprocess" compatibility="9.10.011" expanded="true" height="82" name="(Not working) Replace MVs with medians" width="90" x="313" y="646">
+      <operator activated="false" class="subprocess" compatibility="10.0.000" expanded="true" height="82" name="(Not working) Replace MVs with medians" width="90" x="313" y="646">
         <process expanded="true">
-          <operator activated="true" class="multiply" compatibility="9.10.011" expanded="true" height="103" name="Multiply (2)" width="90" x="112" y="187"/>
-          <operator activated="true" class="replace_missing_values" compatibility="9.10.011" expanded="true" height="103" name="Replace Missing Values - unemploymant 95" width="90" x="514" y="442">
+          <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="103" name="Multiply (2)" width="90" x="112" y="187"/>
+          <operator activated="true" class="replace_missing_values" compatibility="10.0.000" expanded="true" height="103" name="Replace Missing Values - unemploymant 95" width="90" x="514" y="442">
             <parameter key="return_preprocessing_model" value="false"/>
             <parameter key="create_view" value="false"/>
             <parameter key="attribute_filter_type" value="single"/>
@@ -118,7 +113,7 @@
             <list key="columns"/>
             <parameter key="replenishment_value" value="%{median_unemploymant_rate_95}"/>
           </operator>
-          <operator activated="true" class="aggregate" compatibility="9.10.011" expanded="true" height="82" name="Aggregate" width="90" x="313" y="136">
+          <operator activated="true" class="aggregate" compatibility="10.0.000" expanded="true" height="82" name="Aggregate" width="90" x="313" y="136">
             <parameter key="use_default_aggregation" value="false"/>
             <parameter key="attribute_filter_type" value="all"/>
             <parameter key="attribute" value=""/>
@@ -142,8 +137,8 @@
             <parameter key="only_distinct" value="false"/>
             <parameter key="ignore_missings" value="true"/>
           </operator>
-          <operator activated="true" class="multiply" compatibility="9.10.011" expanded="true" height="103" name="Multiply (4)" width="90" x="380" y="238"/>
-          <operator activated="true" class="extract_macro" compatibility="9.10.011" expanded="true" height="68" name="Extract Macro - unemploymant rate 95" width="90" x="648" y="136">
+          <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="103" name="Multiply (4)" width="90" x="380" y="238"/>
+          <operator activated="true" class="extract_macro" compatibility="10.0.000" expanded="true" height="68" name="Extract Macro - unemploymant rate 95" width="90" x="648" y="136">
             <parameter key="macro" value="median"/>
             <parameter key="macro_type" value="data_value"/>
             <parameter key="statistics" value="average"/>
@@ -151,12 +146,12 @@
             <parameter key="example_index" value="1"/>
             <list key="additional_macros"/>
           </operator>
-          <operator activated="true" class="generate_macro" compatibility="9.10.011" expanded="true" height="82" name="Generate Macro - unemploymant rate 95" width="90" x="849" y="111">
+          <operator activated="true" class="generate_macro" compatibility="10.0.000" expanded="true" height="82" name="Generate Macro - unemploymant rate 95" width="90" x="849" y="111">
             <list key="function_descriptions">
               <parameter key="median_unemploymant_rate_95" value="eval(%{median})"/>
             </list>
           </operator>
-          <operator activated="true" class="extract_macro" compatibility="9.10.011" expanded="true" height="68" name="Extract Macro - no. of commited crimes 95" width="90" x="648" y="238">
+          <operator activated="true" class="extract_macro" compatibility="10.0.000" expanded="true" height="68" name="Extract Macro - no. of commited crimes 95" width="90" x="648" y="238">
             <parameter key="macro" value="median"/>
             <parameter key="macro_type" value="data_value"/>
             <parameter key="statistics" value="average"/>
@@ -164,7 +159,7 @@
             <parameter key="example_index" value="1"/>
             <list key="additional_macros"/>
           </operator>
-          <operator activated="true" class="generate_macro" compatibility="9.10.011" expanded="true" height="82" name="Generate Macro - no. of commited crimes 95" width="90" x="782" y="289">
+          <operator activated="true" class="generate_macro" compatibility="10.0.000" expanded="true" height="82" name="Generate Macro - no. of commited crimes 95" width="90" x="782" y="289">
             <list key="function_descriptions">
               <parameter key="median_no._of_commited_crimes_95" value="eval(%{median})"/>
             </list>
@@ -184,7 +179,7 @@
           <portSpacing port="sink_out 2" spacing="0"/>
         </process>
       </operator>
-      <operator activated="true" class="select_attributes" compatibility="9.10.011" expanded="true" height="82" name="Select Attributes (2)" width="90" x="581" y="187">
+      <operator activated="true" class="select_attributes" compatibility="10.0.000" expanded="true" height="82" name="Select Attributes (2)" width="90" x="581" y="187">
         <parameter key="attribute_filter_type" value="single"/>
         <parameter key="attribute" value="name"/>
         <parameter key="attributes" value=""/>
@@ -198,7 +193,7 @@
         <parameter key="invert_selection" value="true"/>
         <parameter key="include_special_attributes" value="false"/>
       </operator>
-      <operator activated="false" class="write_csv" compatibility="9.10.011" expanded="true" height="82" name="Write CSV" width="90" x="782" y="85">
+      <operator activated="false" class="write_csv" compatibility="10.0.000" expanded="true" height="82" name="Write CSV" width="90" x="782" y="85">
         <parameter key="csv_file" value="D:/FEUP/M.EIC/ML/feup-ac-proj/data_processed/district.csv"/>
         <parameter key="column_separator" value=";"/>
         <parameter key="write_attribute_names" value="true"/>
@@ -208,8 +203,8 @@
         <parameter key="append_to_file" value="false"/>
         <parameter key="encoding" value="SYSTEM"/>
       </operator>
-      <operator activated="true" class="multiply" compatibility="9.10.011" expanded="true" height="124" name="Multiply" width="90" x="313" y="391"/>
-      <operator activated="false" class="detect_outlier_cof" compatibility="9.10.011" expanded="true" height="82" name="Detect Outlier (COF)" width="90" x="849" y="493">
+      <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="124" name="Multiply" width="90" x="313" y="391"/>
+      <operator activated="false" class="detect_outlier_cof" compatibility="10.0.000" expanded="true" height="82" name="Detect Outlier (COF)" width="90" x="849" y="493">
         <parameter key="number_of_neighbors" value="7"/>
         <parameter key="number_of_class_outliers" value="10"/>
         <parameter key="measure_types" value="MixedMeasures"/>
@@ -227,24 +222,15 @@
         <parameter key="kernel_a" value="1.0"/>
         <parameter key="kernel_b" value="0.0"/>
       </operator>
-      <operator activated="true" class="detect_outlier_lof" compatibility="9.10.011" expanded="true" height="82" name="Detect Outlier (LOF)" width="90" x="648" y="391">
+      <operator activated="true" class="detect_outlier_lof" compatibility="10.0.000" expanded="true" height="82" name="Detect Outlier (LOF)" width="90" x="648" y="391">
         <parameter key="minimal_points_lower_bound" value="10"/>
         <parameter key="minimal_points_upper_bound" value="20"/>
         <parameter key="distance_function" value="euclidian distance"/>
       </operator>
-      <operator activated="false" class="detect_outlier_densities" compatibility="9.10.011" expanded="true" height="82" name="Detect Outlier (Densities)" width="90" x="648" y="595">
+      <operator activated="false" class="detect_outlier_densities" compatibility="10.0.000" expanded="true" height="82" name="Detect Outlier (Densities)" width="90" x="648" y="595">
         <parameter key="distance_function" value="euclidian distance"/>
       </operator>
-      <operator activated="true" class="productivity:execute_process" compatibility="9.10.011" expanded="true" height="82" name="Execute Clustering" width="90" x="514" y="646">
-        <parameter key="process_location" value="Clustering"/>
-        <parameter key="use_input" value="true"/>
-        <parameter key="store_output" value="false"/>
-        <parameter key="propagate_metadata_recursively" value="true"/>
-        <parameter key="cache_process" value="true"/>
-        <list key="macros"/>
-        <parameter key="fail_for_unknown_macros" value="true"/>
-      </operator>
-      <operator activated="true" class="detect_outlier_distances" compatibility="9.10.011" expanded="true" height="82" name="Detect Outlier (Distances)" width="90" x="447" y="340">
+      <operator activated="true" class="detect_outlier_distances" compatibility="10.0.000" expanded="true" height="82" name="Detect Outlier (Distances)" width="90" x="447" y="340">
         <parameter key="number_of_neighbors" value="10"/>
         <parameter key="number_of_outliers" value="10"/>
         <parameter key="distance_function" value="euclidian distance"/>
@@ -254,19 +240,16 @@
       <connect from_op="Multiply (3)" from_port="output 1" to_op="Replace Missing Values" to_port="example set input"/>
       <connect from_op="Replace Missing Values" from_port="example set output" to_op="Select Attributes (2)" to_port="example set input"/>
       <connect from_op="Select Attributes (2)" from_port="example set output" to_op="Multiply" to_port="input"/>
-      <connect from_op="Multiply" from_port="output 1" to_op="Execute Clustering" to_port="input 1"/>
+      <connect from_op="Multiply" from_port="output 1" to_port="result 1"/>
       <connect from_op="Multiply" from_port="output 2" to_op="Detect Outlier (Distances)" to_port="example set input"/>
       <connect from_op="Multiply" from_port="output 3" to_op="Detect Outlier (LOF)" to_port="example set input"/>
-      <connect from_op="Detect Outlier (LOF)" from_port="example set output" to_port="result 4"/>
-      <connect from_op="Execute Clustering" from_port="result 1" to_port="result 1"/>
-      <connect from_op="Execute Clustering" from_port="result 2" to_port="result 2"/>
-      <connect from_op="Detect Outlier (Distances)" from_port="example set output" to_port="result 3"/>
+      <connect from_op="Detect Outlier (LOF)" from_port="example set output" to_port="result 3"/>
+      <connect from_op="Detect Outlier (Distances)" from_port="example set output" to_port="result 2"/>
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>
       <portSpacing port="sink_result 2" spacing="0"/>
       <portSpacing port="sink_result 3" spacing="0"/>
       <portSpacing port="sink_result 4" spacing="0"/>
-      <portSpacing port="sink_result 5" spacing="0"/>
     </process>
   </operator>
 </process>
