@@ -1,0 +1,14 @@
+{
+    "best_params": {
+        "C": 1000,
+        "class_weight": "balanced",
+        "dual": true,
+        "fit_intercept": true,
+        "intercept_scaling": 2,
+        "max_iter": 10000,
+        "penalty": "l2",
+        "solver": "liblinear",
+        "tol": 1e-05
+    },
+    "best_score": 0.8138171818434976
+}

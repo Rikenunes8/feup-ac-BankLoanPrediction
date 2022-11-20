@@ -1,0 +1,16 @@
+{
+    "best_params": {
+        "C": 100,
+        "class_weight": "balanced",
+        "coef0": 1.0,
+        "decision_function_shape": "ovo",
+        "degree": 1,
+        "gamma": "scale",
+        "kernel": "poly",
+        "max_iter": 10000,
+        "probability": true,
+        "shrinking": true,
+        "tol": 1e-05
+    },
+    "best_score": 0.8197897521581732
+}

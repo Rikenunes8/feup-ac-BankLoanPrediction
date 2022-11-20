@@ -1,0 +1,1 @@
+{"best_params": {"criterion": "entropy", "max_depth": 6, "max_features": "auto", "min_samples_leaf": 6, "min_samples_split": 18}, "best_score": 0.8263363269284321}
