@@ -91,7 +91,7 @@
         <parameter key="k" value="3"/>
         <parameter key="max_runs" value="10"/>
         <parameter key="determine_good_start_values" value="true"/>
-        <parameter key="measure_types" value="BregmanDivergences"/>
+        <parameter key="measure_types" value="NumericalMeasures"/>
         <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
         <parameter key="nominal_measure" value="NominalDistance"/>
         <parameter key="numerical_measure" value="EuclideanDistance"/>
@@ -138,7 +138,7 @@
       </operator>
       <operator activated="true" class="model_simulator:cluster_model_visualizer" compatibility="10.0.000" expanded="true" height="103" name="X-means Visualizer" width="90" x="648" y="442"/>
       <operator activated="true" class="model_simulator:cluster_model_visualizer" compatibility="10.0.000" expanded="true" height="103" name="k-Means Visualizer" width="90" x="715" y="238"/>
-      <operator activated="true" class="normalize" compatibility="10.0.000" expanded="true" height="103" name="Normalize" width="90" x="447" y="238">
+      <operator activated="true" class="normalize" compatibility="10.0.000" expanded="true" height="103" name="Normalize" width="90" x="380" y="238">
         <parameter key="return_preprocessing_model" value="false"/>
         <parameter key="create_view" value="false"/>
         <parameter key="attribute_filter_type" value="all"/>
