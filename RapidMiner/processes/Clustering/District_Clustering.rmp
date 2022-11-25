@@ -107,8 +107,8 @@
         <parameter key="max" value="1.0"/>
         <parameter key="allow_negative_values" value="false"/>
       </operator>
-      <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="208" name="Multiply (2)" width="90" x="313" y="493"/>
-      <operator activated="true" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-medoids elbow" width="90" x="246" y="187">
+      <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="166" name="Multiply (2)" width="90" x="313" y="493"/>
+      <operator activated="false" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-medoids elbow" width="90" x="246" y="187">
         <list key="parameters">
           <parameter key="Clustering (2).k" value="[2.0;10;10;linear]"/>
         </list>
@@ -162,7 +162,7 @@
           <portSpacing port="sink_output 2" spacing="0"/>
         </process>
       </operator>
-      <operator activated="true" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-means elbow" width="90" x="246" y="340">
+      <operator activated="false" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-means elbow" width="90" x="246" y="340">
         <list key="parameters">
           <parameter key="Clustering.k" value="[2.0;10;10;linear]"/>
         </list>
@@ -218,7 +218,7 @@
         </process>
       </operator>
       <operator activated="true" class="dbscan_apache" compatibility="10.0.000" expanded="true" height="103" name="DBSCAN" width="90" x="447" y="646">
-        <parameter key="epsilon" value="0.7"/>
+        <parameter key="epsilon" value="2.5"/>
         <parameter key="minimal_points" value="2"/>
       </operator>
       <operator activated="true" class="principal_component_analysis" compatibility="10.0.000" expanded="true" height="103" name="PCA" width="90" x="447" y="748">
@@ -230,10 +230,10 @@
         <parameter key="add_cluster_attribute" value="true"/>
         <parameter key="add_as_label" value="false"/>
         <parameter key="remove_unlabeled" value="false"/>
-        <parameter key="k" value="7"/>
+        <parameter key="k" value="6"/>
         <parameter key="max_runs" value="10"/>
         <parameter key="determine_good_start_values" value="true"/>
-        <parameter key="measure_types" value="NumericalMeasures"/>
+        <parameter key="measure_types" value="MixedMeasures"/>
         <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
         <parameter key="nominal_measure" value="NominalDistance"/>
         <parameter key="numerical_measure" value="EuclideanDistance"/>
@@ -272,7 +272,7 @@
         <parameter key="add_cluster_attribute" value="true"/>
         <parameter key="add_as_label" value="false"/>
         <parameter key="remove_unlabeled" value="false"/>
-        <parameter key="k" value="6"/>
+        <parameter key="k" value="4"/>
         <parameter key="max_runs" value="10"/>
         <parameter key="max_optimization_steps" value="100"/>
         <parameter key="use_local_random_seed" value="false"/>
@@ -303,15 +303,15 @@
         <parameter key="percentage_threshold" value="0.95"/>
         <parameter key="dimensions" value="2"/>
       </operator>
-      <operator activated="true" class="model_simulator:cluster_model_visualizer" compatibility="10.0.000" expanded="true" height="103" name="k-Means Visualizer" width="90" x="849" y="493"/>
-      <operator activated="true" class="singular_value_decomposition" compatibility="10.0.000" expanded="true" height="103" name="k-means SVD" width="90" x="715" y="697">
+      <operator activated="true" class="model_simulator:cluster_model_visualizer" compatibility="10.0.000" expanded="true" height="103" name="k-Means Visualizer" width="90" x="782" y="493"/>
+      <operator activated="true" class="singular_value_decomposition" compatibility="10.0.000" expanded="true" height="103" name="k-means SVD" width="90" x="782" y="697">
         <parameter key="dimensionality_reduction" value="fixed number"/>
         <parameter key="percentage_threshold" value="0.95"/>
         <parameter key="dimensions" value="2"/>
       </operator>
       <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="124" name="Multiply (3)" width="90" x="514" y="187"/>
       <operator activated="true" class="model_simulator:cluster_model_visualizer" compatibility="10.0.000" expanded="true" height="103" name="k-Medoids Visualizer" width="90" x="715" y="85"/>
-      <operator activated="true" class="singular_value_decomposition" compatibility="10.0.000" expanded="true" height="103" name="k-medoids SVD" width="90" x="648" y="289">
+      <operator activated="true" class="singular_value_decomposition" compatibility="10.0.000" expanded="true" height="103" name="k-medoids SVD" width="90" x="715" y="289">
         <parameter key="dimensionality_reduction" value="fixed number"/>
         <parameter key="percentage_threshold" value="0.95"/>
         <parameter key="dimensions" value="2"/>
@@ -320,6 +320,17 @@
         <parameter key="dimensionality_reduction" value="fixed number"/>
         <parameter key="variance_threshold" value="0.95"/>
         <parameter key="number_of_components" value="2"/>
+      </operator>
+      <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="103" name="Multiply (4)" width="90" x="581" y="748"/>
+      <operator activated="true" class="principal_component_analysis" compatibility="10.0.000" expanded="true" height="103" name="DBSCAN PCA" width="90" x="715" y="799">
+        <parameter key="dimensionality_reduction" value="fixed number"/>
+        <parameter key="variance_threshold" value="0.95"/>
+        <parameter key="number_of_components" value="2"/>
+      </operator>
+      <operator activated="true" class="singular_value_decomposition" compatibility="10.0.000" expanded="true" height="103" name="DBSCAN SVD" width="90" x="715" y="901">
+        <parameter key="dimensionality_reduction" value="fixed number"/>
+        <parameter key="percentage_threshold" value="0.95"/>
+        <parameter key="dimensions" value="2"/>
       </operator>
       <connect from_op="Read CSV" from_port="output" to_op="Select Attributes" to_port="example set input"/>
       <connect from_op="Select Attributes" from_port="example set output" to_op="Select Attributes (3)" to_port="example set input"/>
@@ -331,8 +342,7 @@
       <connect from_op="Multiply (2)" from_port="output 3" to_op="k-medoids" to_port="example set"/>
       <connect from_op="Multiply (2)" from_port="output 4" to_op="k-Means" to_port="example set"/>
       <connect from_op="Multiply (2)" from_port="output 5" to_op="SVD" to_port="example set input"/>
-      <connect from_op="Multiply (2)" from_port="output 6" to_op="k-means elbow" to_port="input 1"/>
-      <connect from_op="Multiply (2)" from_port="output 7" to_op="k-medoids elbow" to_port="input 1"/>
+      <connect from_op="DBSCAN" from_port="example set" to_op="Multiply (4)" to_port="input"/>
       <connect from_op="PCA" from_port="example set output" to_port="result 1"/>
       <connect from_op="k-Means" from_port="cluster model" to_op="k-Means Visualizer" to_port="model"/>
       <connect from_op="k-Means" from_port="clustered set" to_op="Multiply" to_port="input"/>
@@ -345,10 +355,18 @@
       <connect from_op="Multiply (3)" from_port="output 1" to_op="k-medoids PCA" to_port="example set input"/>
       <connect from_op="Multiply (3)" from_port="output 2" to_op="k-medoids SVD" to_port="example set input"/>
       <connect from_op="Multiply (3)" from_port="output 3" to_op="k-Medoids Visualizer" to_port="clustered data"/>
+      <connect from_op="k-medoids PCA" from_port="example set output" to_port="result 5"/>
+      <connect from_op="Multiply (4)" from_port="output 1" to_op="DBSCAN PCA" to_port="example set input"/>
+      <connect from_op="Multiply (4)" from_port="output 2" to_op="DBSCAN SVD" to_port="example set input"/>
+      <connect from_op="DBSCAN PCA" from_port="example set output" to_port="result 3"/>
+      <connect from_op="DBSCAN SVD" from_port="example set output" to_port="result 4"/>
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>
       <portSpacing port="sink_result 2" spacing="0"/>
       <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
+      <portSpacing port="sink_result 5" spacing="0"/>
+      <portSpacing port="sink_result 6" spacing="0"/>
     </process>
   </operator>
 </process>
