@@ -1,0 +1,1 @@
+{"best_params": "{'classifier__criterion': 'entropy', 'classifier__max_depth': 35, 'classifier__max_features': 'log2', 'classifier__max_leaf_nodes': 21, 'classifier__min_samples_leaf': 7, 'classifier__min_samples_split': 20}", "best_score": 0.804002531245056}
