@@ -1,0 +1,1 @@
+{"cv_params": {"classifier__C": 100, "classifier__fit_intercept": false, "classifier__solver": "newton-cg", "classifier__tol": 0.001}, "cv_score": 0.8184622686283817}

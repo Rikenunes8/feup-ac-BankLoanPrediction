@@ -1,0 +1,1 @@
+{"best_params": "{'classifier__criterion': 'entropy', 'classifier__max_depth': 18, 'classifier__max_features': 'sqrt', 'classifier__n_estimators': 40}", "best_score": 0.8594526182566049}

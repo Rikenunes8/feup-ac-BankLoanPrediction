@@ -1,0 +1,11 @@
+{
+    "cv_params": {
+        "classifier__criterion": "entropy",
+        "classifier__max_depth": 21,
+        "classifier__max_features": "log2",
+        "classifier__max_leaf_nodes": 17,
+        "classifier__min_samples_leaf": 9,
+        "classifier__min_samples_split": 4
+    },
+    "cv_score": 0.8568343616516373
+}

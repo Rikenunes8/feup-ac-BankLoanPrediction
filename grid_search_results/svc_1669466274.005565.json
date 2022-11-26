@@ -1,0 +1,1 @@
+{"best_params": "{'classifier__C': 1, 'classifier__coef0': 0.0, 'classifier__degree': 3, 'classifier__gamma': 'scale', 'classifier__kernel': 'poly', 'classifier__shrinking': True, 'classifier__tol': 0.0001}", "best_score": 0.8441649528028264}

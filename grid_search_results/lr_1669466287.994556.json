@@ -1,0 +1,1 @@
+{"best_params": "{'classifier__C': 100, 'classifier__fit_intercept': False, 'classifier__solver': 'newton-cg', 'classifier__tol': 0.001}", "best_score": 0.8178452776459421}
