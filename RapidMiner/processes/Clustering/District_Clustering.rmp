@@ -13,11 +13,11 @@
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
       <operator activated="true" class="read_csv" compatibility="10.0.000" expanded="true" height="68" name="Read CSV" width="90" x="112" y="85">
-        <parameter key="csv_file" value="/Users/lmrg2000/Documents/MEIC/AC/feup-ac-proj/data/district.csv"/>
+        <parameter key="csv_file" value="/Users/lmrg2000/Documents/MEIC/AC/feup-ac-proj/data_processed/district.csv"/>
         <parameter key="column_separators" value=","/>
         <parameter key="trim_lines" value="false"/>
-        <parameter key="use_quotes" value="false"/>
-        <parameter key="quotes_character" value="'"/>
+        <parameter key="use_quotes" value="true"/>
+        <parameter key="quotes_character" value="&quot;"/>
         <parameter key="escape_character" value="\"/>
         <parameter key="skip_comments" value="true"/>
         <parameter key="comment_characters" value="#"/>
@@ -36,21 +36,16 @@
         <parameter key="read_all_values_as_polynominal" value="false"/>
         <list key="data_set_meta_data_information">
           <parameter key="0" value="code.true.integer.attribute"/>
-          <parameter key="1" value="name.true.polynominal.attribute"/>
-          <parameter key="2" value="region.true.polynominal.attribute"/>
-          <parameter key="3" value="no\. of inhabitants.true.integer.attribute"/>
-          <parameter key="4" value="no\. of municipalities with inhabitants &lt; 499.true.integer.attribute"/>
-          <parameter key="5" value="no\. of municipalities with inhabitants 500-1999.true.integer.attribute"/>
-          <parameter key="6" value="no\. of municipalities with inhabitants 2000-9999.true.integer.attribute"/>
-          <parameter key="7" value="no\. of municipalities with inhabitants &gt;10000.true.integer.attribute"/>
-          <parameter key="8" value="no\. of cities .true.integer.attribute"/>
-          <parameter key="9" value="ratio of urban inhabitants.true.real.attribute"/>
-          <parameter key="10" value="average salary.true.integer.attribute"/>
-          <parameter key="11" value="unemploymant rate '95.true.polynominal.attribute"/>
-          <parameter key="12" value="unemploymant rate '96 .true.real.attribute"/>
-          <parameter key="13" value="no\. of enterpreneurs per 1000 inhabitants.true.integer.attribute"/>
-          <parameter key="14" value="no\. of commited crimes '95.true.polynominal.attribute"/>
-          <parameter key="15" value="no\. of commited crimes '96 .true.integer.attribute"/>
+          <parameter key="1" value="region.true.polynominal.attribute"/>
+          <parameter key="2" value="no\. of municipalities with inhabitants &lt; 499.true.integer.attribute"/>
+          <parameter key="3" value="no\. of municipalities with inhabitants 500-1999.true.integer.attribute"/>
+          <parameter key="4" value="no\. of municipalities with inhabitants &gt; 2000.true.integer.attribute"/>
+          <parameter key="5" value="no\. of cities .true.integer.attribute"/>
+          <parameter key="6" value="ratio of urban inhabitants.true.real.attribute"/>
+          <parameter key="7" value="average salary.true.integer.attribute"/>
+          <parameter key="8" value="ratio enterpreneurs.true.real.attribute"/>
+          <parameter key="9" value="unemploymant rate growth.true.real.attribute"/>
+          <parameter key="10" value="crime rate growth.true.real.attribute"/>
         </list>
         <parameter key="read_not_matching_values_as_missings" value="false"/>
       </operator>
@@ -107,7 +102,116 @@
         <parameter key="max" value="1.0"/>
         <parameter key="allow_negative_values" value="false"/>
       </operator>
-      <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="166" name="Multiply (2)" width="90" x="313" y="493"/>
+      <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="208" name="Multiply (2)" width="90" x="313" y="493"/>
+      <operator activated="true" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-means Davies" width="90" x="179" y="748">
+        <list key="parameters">
+          <parameter key="Clustering (3).k" value="[2.0;10;10;linear]"/>
+        </list>
+        <parameter key="error_handling" value="fail on error"/>
+        <parameter key="log_performance" value="true"/>
+        <parameter key="log_all_criteria" value="false"/>
+        <parameter key="synchronize" value="false"/>
+        <parameter key="enable_parallel_execution" value="true"/>
+        <process expanded="true">
+          <operator activated="true" class="concurrency:k_means" compatibility="10.0.000" expanded="true" height="82" name="Clustering (3)" width="90" x="179" y="34">
+            <parameter key="add_cluster_attribute" value="true"/>
+            <parameter key="add_as_label" value="false"/>
+            <parameter key="remove_unlabeled" value="false"/>
+            <parameter key="k" value="5"/>
+            <parameter key="max_runs" value="10"/>
+            <parameter key="determine_good_start_values" value="true"/>
+            <parameter key="measure_types" value="BregmanDivergences"/>
+            <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
+            <parameter key="nominal_measure" value="NominalDistance"/>
+            <parameter key="numerical_measure" value="EuclideanDistance"/>
+            <parameter key="divergence" value="SquaredEuclideanDistance"/>
+            <parameter key="kernel_type" value="radial"/>
+            <parameter key="kernel_gamma" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_degree" value="3.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+            <parameter key="max_optimization_steps" value="100"/>
+            <parameter key="use_local_random_seed" value="false"/>
+            <parameter key="local_random_seed" value="1992"/>
+          </operator>
+          <operator activated="true" class="cluster_distance_performance" compatibility="10.0.000" expanded="true" height="103" name="Performance (6)" width="90" x="313" y="34">
+            <parameter key="main_criterion" value="Davies Bouldin"/>
+            <parameter key="main_criterion_only" value="false"/>
+            <parameter key="normalize" value="true"/>
+            <parameter key="maximize" value="true"/>
+          </operator>
+          <connect from_port="input 1" to_op="Clustering (3)" to_port="example set"/>
+          <connect from_op="Clustering (3)" from_port="cluster model" to_op="Performance (6)" to_port="cluster model"/>
+          <connect from_op="Clustering (3)" from_port="clustered set" to_op="Performance (6)" to_port="example set"/>
+          <connect from_op="Performance (6)" from_port="performance" to_port="performance"/>
+          <connect from_op="Performance (6)" from_port="example set" to_port="output 1"/>
+          <connect from_op="Performance (6)" from_port="cluster model" to_port="model"/>
+          <portSpacing port="source_input 1" spacing="0"/>
+          <portSpacing port="source_input 2" spacing="0"/>
+          <portSpacing port="sink_performance" spacing="0"/>
+          <portSpacing port="sink_model" spacing="0"/>
+          <portSpacing port="sink_output 1" spacing="0"/>
+          <portSpacing port="sink_output 2" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-medoids Davies" width="90" x="179" y="595">
+        <list key="parameters">
+          <parameter key="Clustering (4).k" value="[2.0;10;10;linear]"/>
+        </list>
+        <parameter key="error_handling" value="fail on error"/>
+        <parameter key="log_performance" value="true"/>
+        <parameter key="log_all_criteria" value="false"/>
+        <parameter key="synchronize" value="false"/>
+        <parameter key="enable_parallel_execution" value="true"/>
+        <process expanded="true">
+          <operator activated="true" class="k_medoids" compatibility="10.0.000" expanded="true" height="82" name="Clustering (4)" width="90" x="179" y="34">
+            <parameter key="add_cluster_attribute" value="true"/>
+            <parameter key="add_as_label" value="false"/>
+            <parameter key="remove_unlabeled" value="false"/>
+            <parameter key="k" value="5"/>
+            <parameter key="max_runs" value="10"/>
+            <parameter key="max_optimization_steps" value="100"/>
+            <parameter key="use_local_random_seed" value="false"/>
+            <parameter key="local_random_seed" value="1992"/>
+            <parameter key="measure_types" value="MixedMeasures"/>
+            <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
+            <parameter key="nominal_measure" value="NominalDistance"/>
+            <parameter key="numerical_measure" value="EuclideanDistance"/>
+            <parameter key="divergence" value="GeneralizedIDivergence"/>
+            <parameter key="kernel_type" value="radial"/>
+            <parameter key="kernel_gamma" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_degree" value="3.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+          </operator>
+          <operator activated="true" class="cluster_distance_performance" compatibility="10.0.000" expanded="true" height="103" name="Performance (2)" width="90" x="313" y="34">
+            <parameter key="main_criterion" value="Davies Bouldin"/>
+            <parameter key="main_criterion_only" value="false"/>
+            <parameter key="normalize" value="true"/>
+            <parameter key="maximize" value="true"/>
+          </operator>
+          <connect from_port="input 1" to_op="Clustering (4)" to_port="example set"/>
+          <connect from_op="Clustering (4)" from_port="cluster model" to_op="Performance (2)" to_port="cluster model"/>
+          <connect from_op="Clustering (4)" from_port="clustered set" to_op="Performance (2)" to_port="example set"/>
+          <connect from_op="Performance (2)" from_port="performance" to_port="performance"/>
+          <connect from_op="Performance (2)" from_port="example set" to_port="output 1"/>
+          <connect from_op="Performance (2)" from_port="cluster model" to_port="model"/>
+          <portSpacing port="source_input 1" spacing="0"/>
+          <portSpacing port="source_input 2" spacing="0"/>
+          <portSpacing port="sink_performance" spacing="0"/>
+          <portSpacing port="sink_model" spacing="0"/>
+          <portSpacing port="sink_output 1" spacing="0"/>
+          <portSpacing port="sink_output 2" spacing="0"/>
+        </process>
+      </operator>
       <operator activated="false" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-means elbow" width="90" x="246" y="340">
         <list key="parameters">
           <parameter key="Clustering.k" value="[2.0;10;10;linear]"/>
@@ -230,7 +334,7 @@
         <parameter key="add_cluster_attribute" value="true"/>
         <parameter key="add_as_label" value="false"/>
         <parameter key="remove_unlabeled" value="false"/>
-        <parameter key="k" value="5"/>
+        <parameter key="k" value="2"/>
         <parameter key="max_runs" value="10"/>
         <parameter key="determine_good_start_values" value="true"/>
         <parameter key="measure_types" value="MixedMeasures"/>
@@ -272,7 +376,7 @@
         <parameter key="add_cluster_attribute" value="true"/>
         <parameter key="add_as_label" value="false"/>
         <parameter key="remove_unlabeled" value="false"/>
-        <parameter key="k" value="4"/>
+        <parameter key="k" value="6"/>
         <parameter key="max_runs" value="10"/>
         <parameter key="max_optimization_steps" value="100"/>
         <parameter key="use_local_random_seed" value="false"/>
@@ -333,115 +437,6 @@
       </operator>
       <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="82" name="Multiply (5)" width="90" x="715" y="391"/>
       <operator activated="true" class="model_simulator:cluster_model_visualizer" compatibility="10.0.000" expanded="true" height="103" name="k-Means Visualizer" width="90" x="849" y="442"/>
-      <operator activated="false" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-means Davies" width="90" x="179" y="748">
-        <list key="parameters">
-          <parameter key="Clustering (3).k" value="[2.0;10;10;linear]"/>
-        </list>
-        <parameter key="error_handling" value="fail on error"/>
-        <parameter key="log_performance" value="true"/>
-        <parameter key="log_all_criteria" value="false"/>
-        <parameter key="synchronize" value="false"/>
-        <parameter key="enable_parallel_execution" value="true"/>
-        <process expanded="true">
-          <operator activated="true" class="concurrency:k_means" compatibility="10.0.000" expanded="true" height="82" name="Clustering (3)" width="90" x="179" y="34">
-            <parameter key="add_cluster_attribute" value="true"/>
-            <parameter key="add_as_label" value="false"/>
-            <parameter key="remove_unlabeled" value="false"/>
-            <parameter key="k" value="5"/>
-            <parameter key="max_runs" value="10"/>
-            <parameter key="determine_good_start_values" value="true"/>
-            <parameter key="measure_types" value="BregmanDivergences"/>
-            <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
-            <parameter key="nominal_measure" value="NominalDistance"/>
-            <parameter key="numerical_measure" value="EuclideanDistance"/>
-            <parameter key="divergence" value="SquaredEuclideanDistance"/>
-            <parameter key="kernel_type" value="radial"/>
-            <parameter key="kernel_gamma" value="1.0"/>
-            <parameter key="kernel_sigma1" value="1.0"/>
-            <parameter key="kernel_sigma2" value="0.0"/>
-            <parameter key="kernel_sigma3" value="2.0"/>
-            <parameter key="kernel_degree" value="3.0"/>
-            <parameter key="kernel_shift" value="1.0"/>
-            <parameter key="kernel_a" value="1.0"/>
-            <parameter key="kernel_b" value="0.0"/>
-            <parameter key="max_optimization_steps" value="100"/>
-            <parameter key="use_local_random_seed" value="false"/>
-            <parameter key="local_random_seed" value="1992"/>
-          </operator>
-          <operator activated="true" class="cluster_distance_performance" compatibility="10.0.000" expanded="true" height="103" name="Performance (6)" width="90" x="313" y="34">
-            <parameter key="main_criterion" value="Davies Bouldin"/>
-            <parameter key="main_criterion_only" value="false"/>
-            <parameter key="normalize" value="true"/>
-            <parameter key="maximize" value="true"/>
-          </operator>
-          <connect from_port="input 1" to_op="Clustering (3)" to_port="example set"/>
-          <connect from_op="Clustering (3)" from_port="cluster model" to_op="Performance (6)" to_port="cluster model"/>
-          <connect from_op="Clustering (3)" from_port="clustered set" to_op="Performance (6)" to_port="example set"/>
-          <connect from_op="Performance (6)" from_port="performance" to_port="performance"/>
-          <connect from_op="Performance (6)" from_port="example set" to_port="output 1"/>
-          <connect from_op="Performance (6)" from_port="cluster model" to_port="model"/>
-          <portSpacing port="source_input 1" spacing="0"/>
-          <portSpacing port="source_input 2" spacing="0"/>
-          <portSpacing port="sink_performance" spacing="0"/>
-          <portSpacing port="sink_model" spacing="0"/>
-          <portSpacing port="sink_output 1" spacing="0"/>
-          <portSpacing port="sink_output 2" spacing="0"/>
-        </process>
-      </operator>
-      <operator activated="false" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-medoids Davies" width="90" x="179" y="595">
-        <list key="parameters">
-          <parameter key="Clustering (4).k" value="[2.0;10;10;linear]"/>
-        </list>
-        <parameter key="error_handling" value="fail on error"/>
-        <parameter key="log_performance" value="true"/>
-        <parameter key="log_all_criteria" value="false"/>
-        <parameter key="synchronize" value="false"/>
-        <parameter key="enable_parallel_execution" value="true"/>
-        <process expanded="true">
-          <operator activated="true" class="k_medoids" compatibility="10.0.000" expanded="true" height="82" name="Clustering (4)" width="90" x="179" y="34">
-            <parameter key="add_cluster_attribute" value="true"/>
-            <parameter key="add_as_label" value="false"/>
-            <parameter key="remove_unlabeled" value="false"/>
-            <parameter key="k" value="5"/>
-            <parameter key="max_runs" value="10"/>
-            <parameter key="max_optimization_steps" value="100"/>
-            <parameter key="use_local_random_seed" value="false"/>
-            <parameter key="local_random_seed" value="1992"/>
-            <parameter key="measure_types" value="MixedMeasures"/>
-            <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
-            <parameter key="nominal_measure" value="NominalDistance"/>
-            <parameter key="numerical_measure" value="EuclideanDistance"/>
-            <parameter key="divergence" value="GeneralizedIDivergence"/>
-            <parameter key="kernel_type" value="radial"/>
-            <parameter key="kernel_gamma" value="1.0"/>
-            <parameter key="kernel_sigma1" value="1.0"/>
-            <parameter key="kernel_sigma2" value="0.0"/>
-            <parameter key="kernel_sigma3" value="2.0"/>
-            <parameter key="kernel_degree" value="3.0"/>
-            <parameter key="kernel_shift" value="1.0"/>
-            <parameter key="kernel_a" value="1.0"/>
-            <parameter key="kernel_b" value="0.0"/>
-          </operator>
-          <operator activated="true" class="cluster_distance_performance" compatibility="10.0.000" expanded="true" height="103" name="Performance (2)" width="90" x="313" y="34">
-            <parameter key="main_criterion" value="Davies Bouldin"/>
-            <parameter key="main_criterion_only" value="false"/>
-            <parameter key="normalize" value="true"/>
-            <parameter key="maximize" value="true"/>
-          </operator>
-          <connect from_port="input 1" to_op="Clustering (4)" to_port="example set"/>
-          <connect from_op="Clustering (4)" from_port="cluster model" to_op="Performance (2)" to_port="cluster model"/>
-          <connect from_op="Clustering (4)" from_port="clustered set" to_op="Performance (2)" to_port="example set"/>
-          <connect from_op="Performance (2)" from_port="performance" to_port="performance"/>
-          <connect from_op="Performance (2)" from_port="example set" to_port="output 1"/>
-          <connect from_op="Performance (2)" from_port="cluster model" to_port="model"/>
-          <portSpacing port="source_input 1" spacing="0"/>
-          <portSpacing port="source_input 2" spacing="0"/>
-          <portSpacing port="sink_performance" spacing="0"/>
-          <portSpacing port="sink_model" spacing="0"/>
-          <portSpacing port="sink_output 1" spacing="0"/>
-          <portSpacing port="sink_output 2" spacing="0"/>
-        </process>
-      </operator>
       <connect from_op="Read CSV" from_port="output" to_op="Select Attributes" to_port="example set input"/>
       <connect from_op="Select Attributes" from_port="example set output" to_op="Select Attributes (3)" to_port="example set input"/>
       <connect from_op="Select Attributes (3)" from_port="example set output" to_op="Set Role" to_port="example set input"/>
@@ -452,6 +447,8 @@
       <connect from_op="Multiply (2)" from_port="output 3" to_op="k-medoids" to_port="example set"/>
       <connect from_op="Multiply (2)" from_port="output 4" to_op="k-Means" to_port="example set"/>
       <connect from_op="Multiply (2)" from_port="output 5" to_op="SVD" to_port="example set input"/>
+      <connect from_op="Multiply (2)" from_port="output 6" to_op="k-medoids Davies" to_port="input 1"/>
+      <connect from_op="Multiply (2)" from_port="output 7" to_op="k-means Davies" to_port="input 1"/>
       <connect from_op="DBSCAN" from_port="example set" to_op="Multiply (4)" to_port="input"/>
       <connect from_op="k-Means" from_port="cluster model" to_op="Multiply (5)" to_port="input"/>
       <connect from_op="k-Means" from_port="clustered set" to_op="Multiply" to_port="input"/>
@@ -460,6 +457,7 @@
       <connect from_op="Multiply" from_port="output 1" to_op="k-Means Visualizer" to_port="clustered data"/>
       <connect from_op="Multiply" from_port="output 2" to_op="k-means PCA" to_port="example set input"/>
       <connect from_op="Multiply" from_port="output 3" to_op="k-means SVD" to_port="example set input"/>
+      <connect from_op="k-means PCA" from_port="example set output" to_port="result 4"/>
       <connect from_op="Multiply (3)" from_port="output 1" to_op="k-medoids PCA" to_port="example set input"/>
       <connect from_op="Multiply (3)" from_port="output 2" to_op="k-medoids SVD" to_port="example set input"/>
       <connect from_op="Multiply (3)" from_port="output 3" to_op="k-Medoids Visualizer" to_port="clustered data"/>
@@ -474,6 +472,7 @@
       <portSpacing port="sink_result 2" spacing="0"/>
       <portSpacing port="sink_result 3" spacing="0"/>
       <portSpacing port="sink_result 4" spacing="0"/>
+      <portSpacing port="sink_result 5" spacing="0"/>
     </process>
   </operator>
 </process>
