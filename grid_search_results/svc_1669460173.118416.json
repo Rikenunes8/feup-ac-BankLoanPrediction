@@ -1,0 +1,12 @@
+{
+    "cv_params": {
+        "classifier__C": 0.001,
+        "classifier__coef0": 0.4,
+        "classifier__degree": 5,
+        "classifier__gamma": "scale",
+        "classifier__kernel": "poly",
+        "classifier__shrinking": true,
+        "classifier__tol": 0.01
+    },
+    "cv_score": 0.8188735959500079
+}
