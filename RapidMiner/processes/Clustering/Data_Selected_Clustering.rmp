@@ -42,8 +42,8 @@
           <parameter key="4" value="age_on_loan_request_disc.true.real.attribute"/>
           <parameter key="5" value="account_frequency_weekly issuance.true.real.attribute"/>
           <parameter key="6" value="gender_Female.true.real.attribute"/>
-          <parameter key="7" value="status.false.integer.attribute"/>
-          <parameter key="8" value="status.true.integer.attribute"/>
+          <parameter key="7" value="status.true.integer.attribute"/>
+          <parameter key="8" value="status(prediction).true.integer.attribute"/>
         </list>
         <parameter key="read_not_matching_values_as_missings" value="false"/>
       </operator>
@@ -86,7 +86,7 @@
         <parameter key="unexpected_value_handling" value="all 0 and warning"/>
         <parameter key="use_underscore_in_name" value="false"/>
       </operator>
-      <operator activated="true" class="select_attributes" compatibility="10.0.000" expanded="true" height="82" name="Select Attributes" width="90" x="45" y="391">
+      <operator activated="true" class="select_attributes" compatibility="10.0.000" expanded="true" height="82" name="Select Attributes" width="90" x="45" y="340">
         <parameter key="attribute_filter_type" value="value_type"/>
         <parameter key="attribute" value="gender"/>
         <parameter key="attributes" value=""/>
@@ -100,9 +100,9 @@
         <parameter key="invert_selection" value="false"/>
         <parameter key="include_special_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="select_attributes" compatibility="10.0.000" expanded="true" height="82" name="Select Attributes (3)" width="90" x="45" y="493">
+      <operator activated="true" class="select_attributes" compatibility="10.0.000" expanded="true" height="82" name="Select Attributes (3)" width="90" x="45" y="442">
         <parameter key="attribute_filter_type" value="all"/>
-        <parameter key="attribute" value="account_id"/>
+        <parameter key="attribute" value="status"/>
         <parameter key="attributes" value=""/>
         <parameter key="use_except_expression" value="false"/>
         <parameter key="value_type" value="attribute_value"/>
@@ -114,14 +114,12 @@
         <parameter key="invert_selection" value="false"/>
         <parameter key="include_special_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="set_role" compatibility="10.0.000" expanded="true" height="82" name="Set Role" width="90" x="45" y="595">
-        <parameter key="attribute_name" value="status"/>
+      <operator activated="true" class="set_role" compatibility="10.0.000" expanded="true" height="82" name="Set Role" width="90" x="45" y="544">
+        <parameter key="attribute_name" value="status(prediction)"/>
         <parameter key="target_role" value="prediction"/>
-        <list key="set_additional_roles">
-          <parameter key="status" value="prediction"/>
-        </list>
+        <list key="set_additional_roles"/>
       </operator>
-      <operator activated="true" class="normalize" compatibility="10.0.000" expanded="true" height="103" name="Normalize" width="90" x="45" y="697">
+      <operator activated="true" class="normalize" compatibility="10.0.000" expanded="true" height="103" name="Normalize" width="90" x="45" y="646">
         <parameter key="return_preprocessing_model" value="false"/>
         <parameter key="create_view" value="false"/>
         <parameter key="attribute_filter_type" value="all"/>
@@ -141,10 +139,10 @@
         <parameter key="max" value="1.0"/>
         <parameter key="allow_negative_values" value="false"/>
       </operator>
-      <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="250" name="Multiply (2)" width="90" x="179" y="595"/>
-      <operator activated="true" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-means Davies" width="90" x="179" y="1003">
+      <operator activated="true" class="multiply" compatibility="10.0.000" expanded="true" height="187" name="Multiply (2)" width="90" x="179" y="595"/>
+      <operator activated="false" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-medoids elbow" width="90" x="179" y="238">
         <list key="parameters">
-          <parameter key="Clustering (3).k" value="[2.0;10;10;linear]"/>
+          <parameter key="Clustering (2).k" value="[2.0;10;10;linear]"/>
         </list>
         <parameter key="error_handling" value="fail on error"/>
         <parameter key="log_performance" value="true"/>
@@ -152,62 +150,7 @@
         <parameter key="synchronize" value="false"/>
         <parameter key="enable_parallel_execution" value="true"/>
         <process expanded="true">
-          <operator activated="true" class="concurrency:k_means" compatibility="10.0.000" expanded="true" height="82" name="Clustering (3)" width="90" x="179" y="34">
-            <parameter key="add_cluster_attribute" value="true"/>
-            <parameter key="add_as_label" value="false"/>
-            <parameter key="remove_unlabeled" value="false"/>
-            <parameter key="k" value="5"/>
-            <parameter key="max_runs" value="10"/>
-            <parameter key="determine_good_start_values" value="true"/>
-            <parameter key="measure_types" value="BregmanDivergences"/>
-            <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
-            <parameter key="nominal_measure" value="NominalDistance"/>
-            <parameter key="numerical_measure" value="EuclideanDistance"/>
-            <parameter key="divergence" value="SquaredEuclideanDistance"/>
-            <parameter key="kernel_type" value="radial"/>
-            <parameter key="kernel_gamma" value="1.0"/>
-            <parameter key="kernel_sigma1" value="1.0"/>
-            <parameter key="kernel_sigma2" value="0.0"/>
-            <parameter key="kernel_sigma3" value="2.0"/>
-            <parameter key="kernel_degree" value="3.0"/>
-            <parameter key="kernel_shift" value="1.0"/>
-            <parameter key="kernel_a" value="1.0"/>
-            <parameter key="kernel_b" value="0.0"/>
-            <parameter key="max_optimization_steps" value="100"/>
-            <parameter key="use_local_random_seed" value="false"/>
-            <parameter key="local_random_seed" value="1992"/>
-          </operator>
-          <operator activated="true" class="cluster_distance_performance" compatibility="10.0.000" expanded="true" height="103" name="Performance (6)" width="90" x="313" y="34">
-            <parameter key="main_criterion" value="Davies Bouldin"/>
-            <parameter key="main_criterion_only" value="false"/>
-            <parameter key="normalize" value="true"/>
-            <parameter key="maximize" value="true"/>
-          </operator>
-          <connect from_port="input 1" to_op="Clustering (3)" to_port="example set"/>
-          <connect from_op="Clustering (3)" from_port="cluster model" to_op="Performance (6)" to_port="cluster model"/>
-          <connect from_op="Clustering (3)" from_port="clustered set" to_op="Performance (6)" to_port="example set"/>
-          <connect from_op="Performance (6)" from_port="performance" to_port="performance"/>
-          <connect from_op="Performance (6)" from_port="example set" to_port="output 1"/>
-          <connect from_op="Performance (6)" from_port="cluster model" to_port="model"/>
-          <portSpacing port="source_input 1" spacing="0"/>
-          <portSpacing port="source_input 2" spacing="0"/>
-          <portSpacing port="sink_performance" spacing="0"/>
-          <portSpacing port="sink_model" spacing="0"/>
-          <portSpacing port="sink_output 1" spacing="0"/>
-          <portSpacing port="sink_output 2" spacing="0"/>
-        </process>
-      </operator>
-      <operator activated="true" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-medoids Davies" width="90" x="179" y="850">
-        <list key="parameters">
-          <parameter key="Clustering (4).k" value="[2.0;10;10;linear]"/>
-        </list>
-        <parameter key="error_handling" value="fail on error"/>
-        <parameter key="log_performance" value="true"/>
-        <parameter key="log_all_criteria" value="false"/>
-        <parameter key="synchronize" value="false"/>
-        <parameter key="enable_parallel_execution" value="true"/>
-        <process expanded="true">
-          <operator activated="true" class="k_medoids" compatibility="10.0.000" expanded="true" height="82" name="Clustering (4)" width="90" x="179" y="34">
+          <operator activated="true" class="k_medoids" compatibility="10.0.000" expanded="true" height="82" name="Clustering (2)" width="90" x="179" y="34">
             <parameter key="add_cluster_attribute" value="true"/>
             <parameter key="add_as_label" value="false"/>
             <parameter key="remove_unlabeled" value="false"/>
@@ -231,18 +174,18 @@
             <parameter key="kernel_a" value="1.0"/>
             <parameter key="kernel_b" value="0.0"/>
           </operator>
-          <operator activated="true" class="cluster_distance_performance" compatibility="10.0.000" expanded="true" height="103" name="Performance (2)" width="90" x="313" y="34">
-            <parameter key="main_criterion" value="Davies Bouldin"/>
+          <operator activated="true" class="cluster_distance_performance" compatibility="10.0.000" expanded="true" height="103" name="Performance" width="90" x="313" y="34">
+            <parameter key="main_criterion" value="Avg. within centroid distance"/>
             <parameter key="main_criterion_only" value="false"/>
             <parameter key="normalize" value="true"/>
             <parameter key="maximize" value="true"/>
           </operator>
-          <connect from_port="input 1" to_op="Clustering (4)" to_port="example set"/>
-          <connect from_op="Clustering (4)" from_port="cluster model" to_op="Performance (2)" to_port="cluster model"/>
-          <connect from_op="Clustering (4)" from_port="clustered set" to_op="Performance (2)" to_port="example set"/>
-          <connect from_op="Performance (2)" from_port="performance" to_port="performance"/>
-          <connect from_op="Performance (2)" from_port="example set" to_port="output 1"/>
-          <connect from_op="Performance (2)" from_port="cluster model" to_port="model"/>
+          <connect from_port="input 1" to_op="Clustering (2)" to_port="example set"/>
+          <connect from_op="Clustering (2)" from_port="cluster model" to_op="Performance" to_port="cluster model"/>
+          <connect from_op="Clustering (2)" from_port="clustered set" to_op="Performance" to_port="example set"/>
+          <connect from_op="Performance" from_port="performance" to_port="performance"/>
+          <connect from_op="Performance" from_port="example set" to_port="output 1"/>
+          <connect from_op="Performance" from_port="cluster model" to_port="model"/>
           <portSpacing port="source_input 1" spacing="0"/>
           <portSpacing port="source_input 2" spacing="0"/>
           <portSpacing port="sink_performance" spacing="0"/>
@@ -251,7 +194,7 @@
           <portSpacing port="sink_output 2" spacing="0"/>
         </process>
       </operator>
-      <operator activated="true" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-means elbow" width="90" x="179" y="391">
+      <operator activated="false" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-means elbow" width="90" x="179" y="391">
         <list key="parameters">
           <parameter key="Clustering.k" value="[2.0;10;10;linear]"/>
         </list>
@@ -306,9 +249,9 @@
           <portSpacing port="sink_output 2" spacing="0"/>
         </process>
       </operator>
-      <operator activated="true" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-medoids elbow" width="90" x="179" y="238">
+      <operator activated="false" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-means Davies" width="90" x="179" y="1003">
         <list key="parameters">
-          <parameter key="Clustering (2).k" value="[2.0;10;10;linear]"/>
+          <parameter key="Clustering (3).k" value="[2.0;10;10;linear]"/>
         </list>
         <parameter key="error_handling" value="fail on error"/>
         <parameter key="log_performance" value="true"/>
@@ -316,7 +259,62 @@
         <parameter key="synchronize" value="false"/>
         <parameter key="enable_parallel_execution" value="true"/>
         <process expanded="true">
-          <operator activated="true" class="k_medoids" compatibility="10.0.000" expanded="true" height="82" name="Clustering (2)" width="90" x="179" y="34">
+          <operator activated="true" class="concurrency:k_means" compatibility="10.0.000" expanded="true" height="82" name="Clustering (3)" width="90" x="179" y="34">
+            <parameter key="add_cluster_attribute" value="true"/>
+            <parameter key="add_as_label" value="false"/>
+            <parameter key="remove_unlabeled" value="false"/>
+            <parameter key="k" value="5"/>
+            <parameter key="max_runs" value="10"/>
+            <parameter key="determine_good_start_values" value="true"/>
+            <parameter key="measure_types" value="BregmanDivergences"/>
+            <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
+            <parameter key="nominal_measure" value="NominalDistance"/>
+            <parameter key="numerical_measure" value="EuclideanDistance"/>
+            <parameter key="divergence" value="SquaredEuclideanDistance"/>
+            <parameter key="kernel_type" value="radial"/>
+            <parameter key="kernel_gamma" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_degree" value="3.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+            <parameter key="max_optimization_steps" value="100"/>
+            <parameter key="use_local_random_seed" value="false"/>
+            <parameter key="local_random_seed" value="1992"/>
+          </operator>
+          <operator activated="true" class="cluster_distance_performance" compatibility="10.0.000" expanded="true" height="103" name="Performance (6)" width="90" x="313" y="34">
+            <parameter key="main_criterion" value="Davies Bouldin"/>
+            <parameter key="main_criterion_only" value="false"/>
+            <parameter key="normalize" value="true"/>
+            <parameter key="maximize" value="true"/>
+          </operator>
+          <connect from_port="input 1" to_op="Clustering (3)" to_port="example set"/>
+          <connect from_op="Clustering (3)" from_port="cluster model" to_op="Performance (6)" to_port="cluster model"/>
+          <connect from_op="Clustering (3)" from_port="clustered set" to_op="Performance (6)" to_port="example set"/>
+          <connect from_op="Performance (6)" from_port="performance" to_port="performance"/>
+          <connect from_op="Performance (6)" from_port="example set" to_port="output 1"/>
+          <connect from_op="Performance (6)" from_port="cluster model" to_port="model"/>
+          <portSpacing port="source_input 1" spacing="0"/>
+          <portSpacing port="source_input 2" spacing="0"/>
+          <portSpacing port="sink_performance" spacing="0"/>
+          <portSpacing port="sink_model" spacing="0"/>
+          <portSpacing port="sink_output 1" spacing="0"/>
+          <portSpacing port="sink_output 2" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="false" class="concurrency:optimize_parameters_grid" compatibility="10.0.000" expanded="true" height="145" name="k-medoids Davies" width="90" x="179" y="850">
+        <list key="parameters">
+          <parameter key="Clustering (4).k" value="[2.0;10;10;linear]"/>
+        </list>
+        <parameter key="error_handling" value="fail on error"/>
+        <parameter key="log_performance" value="true"/>
+        <parameter key="log_all_criteria" value="false"/>
+        <parameter key="synchronize" value="false"/>
+        <parameter key="enable_parallel_execution" value="true"/>
+        <process expanded="true">
+          <operator activated="true" class="k_medoids" compatibility="10.0.000" expanded="true" height="82" name="Clustering (4)" width="90" x="179" y="34">
             <parameter key="add_cluster_attribute" value="true"/>
             <parameter key="add_as_label" value="false"/>
             <parameter key="remove_unlabeled" value="false"/>
@@ -340,18 +338,18 @@
             <parameter key="kernel_a" value="1.0"/>
             <parameter key="kernel_b" value="0.0"/>
           </operator>
-          <operator activated="true" class="cluster_distance_performance" compatibility="10.0.000" expanded="true" height="103" name="Performance" width="90" x="313" y="34">
-            <parameter key="main_criterion" value="Avg. within centroid distance"/>
+          <operator activated="true" class="cluster_distance_performance" compatibility="10.0.000" expanded="true" height="103" name="Performance (2)" width="90" x="313" y="34">
+            <parameter key="main_criterion" value="Davies Bouldin"/>
             <parameter key="main_criterion_only" value="false"/>
             <parameter key="normalize" value="true"/>
             <parameter key="maximize" value="true"/>
           </operator>
-          <connect from_port="input 1" to_op="Clustering (2)" to_port="example set"/>
-          <connect from_op="Clustering (2)" from_port="cluster model" to_op="Performance" to_port="cluster model"/>
-          <connect from_op="Clustering (2)" from_port="clustered set" to_op="Performance" to_port="example set"/>
-          <connect from_op="Performance" from_port="performance" to_port="performance"/>
-          <connect from_op="Performance" from_port="example set" to_port="output 1"/>
-          <connect from_op="Performance" from_port="cluster model" to_port="model"/>
+          <connect from_port="input 1" to_op="Clustering (4)" to_port="example set"/>
+          <connect from_op="Clustering (4)" from_port="cluster model" to_op="Performance (2)" to_port="cluster model"/>
+          <connect from_op="Clustering (4)" from_port="clustered set" to_op="Performance (2)" to_port="example set"/>
+          <connect from_op="Performance (2)" from_port="performance" to_port="performance"/>
+          <connect from_op="Performance (2)" from_port="example set" to_port="output 1"/>
+          <connect from_op="Performance (2)" from_port="cluster model" to_port="model"/>
           <portSpacing port="source_input 1" spacing="0"/>
           <portSpacing port="source_input 2" spacing="0"/>
           <portSpacing port="sink_performance" spacing="0"/>
@@ -470,11 +468,8 @@
       <connect from_op="Multiply (2)" from_port="output 3" to_op="k-medoids" to_port="example set"/>
       <connect from_op="Multiply (2)" from_port="output 4" to_op="k-Means" to_port="example set"/>
       <connect from_op="Multiply (2)" from_port="output 5" to_op="SVD" to_port="example set input"/>
-      <connect from_op="Multiply (2)" from_port="output 6" to_op="k-medoids elbow" to_port="input 1"/>
-      <connect from_op="Multiply (2)" from_port="output 7" to_op="k-means elbow" to_port="input 1"/>
-      <connect from_op="Multiply (2)" from_port="output 8" to_op="k-medoids Davies" to_port="input 1"/>
-      <connect from_op="Multiply (2)" from_port="output 9" to_op="k-means Davies" to_port="input 1"/>
       <connect from_op="DBSCAN" from_port="example set" to_op="Multiply (4)" to_port="input"/>
+      <connect from_op="PCA" from_port="example set output" to_port="result 5"/>
       <connect from_op="k-Means" from_port="cluster model" to_op="k-Means Visualizer" to_port="model"/>
       <connect from_op="k-Means" from_port="clustered set" to_op="Multiply" to_port="input"/>
       <connect from_op="k-medoids" from_port="cluster model" to_op="k-Medoids Visualizer" to_port="model"/>
@@ -482,15 +477,22 @@
       <connect from_op="Multiply" from_port="output 1" to_op="k-Means Visualizer" to_port="clustered data"/>
       <connect from_op="Multiply" from_port="output 2" to_op="k-means PCA" to_port="example set input"/>
       <connect from_op="Multiply" from_port="output 3" to_op="k-means SVD" to_port="example set input"/>
+      <connect from_op="k-means PCA" from_port="example set output" to_port="result 4"/>
+      <connect from_op="k-Means Visualizer" from_port="visualizer output" to_port="result 3"/>
       <connect from_op="Multiply (3)" from_port="output 1" to_op="k-medoids PCA" to_port="example set input"/>
       <connect from_op="Multiply (3)" from_port="output 2" to_op="k-medoids SVD" to_port="example set input"/>
       <connect from_op="Multiply (3)" from_port="output 3" to_op="k-Medoids Visualizer" to_port="clustered data"/>
       <connect from_op="k-Medoids Visualizer" from_port="visualizer output" to_port="result 1"/>
+      <connect from_op="k-medoids PCA" from_port="example set output" to_port="result 2"/>
       <connect from_op="Multiply (4)" from_port="output 1" to_op="DBSCAN PCA" to_port="example set input"/>
       <connect from_op="Multiply (4)" from_port="output 2" to_op="DBSCAN SVD" to_port="example set input"/>
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>
       <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
+      <portSpacing port="sink_result 5" spacing="0"/>
+      <portSpacing port="sink_result 6" spacing="0"/>
     </process>
   </operator>
 </process>
