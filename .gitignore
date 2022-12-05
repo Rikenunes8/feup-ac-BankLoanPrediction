@@ -3,4 +3,4 @@
 .DS_Store
 *.orig
 correlation.png
-correlation.svg
+*.svg
