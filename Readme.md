@@ -1,5 +1,11 @@
 # To loan or not to loan - that is the question
 
+The project was devolped using python and jupyter notebooks for data analysis, data preparation, feature selection and the resolution of the predictive problem. The tool Rapid Miner was used especially for the descriptive problem.
+
+Even so, the Rapid Miner was also explored in order to make predictions and add more data preparation parallel to notebooks, however it was not fully optimized and taken into account after compared with the notebooks pipeline.
+
+## Python and Jupyter Notebooks
+
 The project is composed by 7 jupyter notebooks:
 - **data_analysis.ipynb**
     - This notebook is the one responsible to analyse the data, the original one, the processed data in some cases and the Final table data
@@ -57,5 +63,9 @@ results = {
     - The model predictions to be saved are hardcoded chose
     - A file ready to be submited in kaggle is saved in 'kaggle/submission.csv'
 
+
+## Rapid Miner
+
+**TODO**
 Descriptive Problem
 - Process used is in path `./RapidMiner/processes/Clustering/All_Data_Clustering.rmp
