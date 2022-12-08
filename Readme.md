@@ -1,8 +1,8 @@
 # To loan or not to loan - that is the question
 
-The project was devolped using python and jupyter notebooks for data analysis, data preparation, feature selection and the resolution of the predictive problem. The tool Rapid Miner was used especially for the descriptive problem.
+The Data Mining project was devolped using python and jupyter notebooks for data analysis, data preparation, feature selection and the resolution of the predictive problem. The tool RapidMiner was used especially for the descriptive problem.
 
-Even so, the Rapid Miner was also explored in order to make predictions and add more data preparation parallel to notebooks, however it was not fully optimized and taken into account after compared with the notebooks pipeline.
+Even so, the RapidMiner was also explored in order to make predictions and add more data preparation parallel to notebooks, however it was not fully optimized and taken into account after compared with the notebooks pipeline.
 
 ## Python and Jupyter Notebooks
 
