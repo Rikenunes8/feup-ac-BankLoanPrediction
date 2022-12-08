@@ -1,1 +1,4 @@
-{"best_params": "{'classifier__criterion': 'entropy', 'classifier__max_depth': 4, 'classifier__max_features': 'log2', 'classifier__n_estimators': 200}", "best_score": 0.8433528450139746}
+{
+    "best_params": "{'classifier__criterion': 'entropy', 'classifier__max_depth': 4, 'classifier__max_features': 'log2', 'classifier__n_estimators': 200}",
+    "best_score": 0.8433528450139746
+}

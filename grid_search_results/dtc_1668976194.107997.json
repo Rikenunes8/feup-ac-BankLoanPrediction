@@ -1,1 +1,10 @@
-{"best_params": {"criterion": "entropy", "max_depth": 7, "max_features": "sqrt", "min_samples_leaf": 7, "min_samples_split": 18}, "best_score": 0.8395718462823725}
+{
+    "best_params": {
+        "criterion": "entropy",
+        "max_depth": 7,
+        "max_features": "sqrt",
+        "min_samples_leaf": 7,
+        "min_samples_split": 18
+    },
+    "best_score": 0.8395718462823725
+}

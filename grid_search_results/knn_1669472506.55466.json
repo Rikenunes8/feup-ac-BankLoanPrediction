@@ -1,1 +1,0 @@
-{"best_params": "{'classifier__algorithm': 'auto', 'classifier__n_neighbors': 11, 'classifier__weights': 'distance'}", "best_score": 0.6537019458946369}
