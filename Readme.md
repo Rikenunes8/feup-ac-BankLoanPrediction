@@ -64,8 +64,13 @@ results = {
     - A file ready to be submited in kaggle is saved in 'kaggle/submission.csv'
 
 
-## Rapid Miner
+## RapidMiner Studio
 
-**TODO**
-Descriptive Problem
-- Process used is in path `./RapidMiner/processes/Clustering/All_Data_Clustering.rmp
+The Descriptive Problem was approached using RapidMiner Studio
+- Process used is in path `./RapidMiner/All_Data_Clustering.rmp`
+- The **Read CSV** block should be set to read `./data_processed/complete/data.csv`.
+- The first/leftmost column filters and normalizes the data.
+- The second one contains all the blocks used for evaluation (these blocks only need to be connected to an input source in order to show their results)
+- In order to plot the result from the block **k-means Davies**, the chart style *Series* was used, with `Clustering.k` on the x axis and `Davies Bouldin` on the y axis.
+- From thereon, there are the algorithms with different visualizations.
+- The results will most likely differ somewhat from the ones shown in the report because of how RapidMiner implements randomness. Simply moving blocks can alter the results.
